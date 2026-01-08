@@ -1,0 +1,32 @@
+todo.txt
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Virtual environments
+venv/
+env/
+.env/
+.venv/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+
+# VS Code
+.vscode/
+#cursor
+.cursor
+
+# Logs
+*.log
+
+# Local environment variables or secrets
+.env
+.env.local
