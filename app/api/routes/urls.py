@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import RedirectResponse
-from fastapi.responsesRedirectResponse,  imort RedirectResponse
+from fastapi.responses  import RedirectResponse
 from pydantic import HttpUrl
 from sqlalchemy.orm import Session
 
