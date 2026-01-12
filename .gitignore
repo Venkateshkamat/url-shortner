@@ -30,3 +30,6 @@ dist/
 # Local environment variables or secrets
 .env
 .env.local
+
+
+test.db
