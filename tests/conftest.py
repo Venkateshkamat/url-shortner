@@ -11,10 +11,9 @@ from app.db.base import Base
 from app.db.session import engine
 
 
-
 @pytest.fixture(autouse=True)
 def setup_database():
-    #create db tables before testing
+    # create db tables before testing
     Base.metadata.create_all(bind=engine)
     yield
     Base.metadata.drop_all(bind=engine)
@@ -22,5 +21,5 @@ def setup_database():
 
 @pytest.fixture
 def client():
-    #test client with clean db
+    # test client with clean db
     return TestClient(app)

@@ -11,6 +11,7 @@ from app.services.shortener import generate_short_code
 
 router = APIRouter()
 
+
 @router.post("/shorten")
 def create_short_url(payload: URLCreate, db: Session = Depends(get_db)):
     for _ in range(10):
@@ -20,8 +21,6 @@ def create_short_url(payload: URLCreate, db: Session = Depends(get_db)):
             break
     else:
         raise HTTPException(status_code=500, detail="Failed to generate unique Url")
-
-    
 
     url = URL(original_url=str(payload.original_url), short_code=short_code)
     db.add(url)
@@ -34,31 +33,32 @@ def create_short_url(payload: URLCreate, db: Session = Depends(get_db)):
 
     return {"short_code": short_code}
 
+
 @router.get("/stats/{short_code}")
 def stats(short_code: str, db: Session = Depends(get_db)):
     url = db.query(URL).filter(URL.short_code == short_code).first()
 
     if not url:
         raise HTTPException(status_code=404, detail="URL not found")
-    
+
     return {
         "id": url.id,
         "original_url": str(url.original_url),
         "short_code": url.short_code,
         "created_at": url.created_at.isoformat() if url.created_at else None,
         "expires_at": url.expires_at.isoformat() if url.expires_at else None,
-        "clicks": url.clicks
+        "clicks": url.clicks,
     }
+
 
 @router.get("/{short_code}")
 def redirect(short_code: str, db: Session = Depends(get_db)):
     url = db.query(URL).filter(URL.short_code == short_code).first()
 
     if not url:
-        raise HTTPException(status_code=404, detail="URL not Available") 
-    
+        raise HTTPException(status_code=404, detail="URL not Available")
+
     url.clicks += 1
     db.commit()
-    
-    return RedirectResponse(str(url.original_url))
 
+    return RedirectResponse(str(url.original_url))
