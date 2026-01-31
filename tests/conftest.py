@@ -1,14 +1,13 @@
 import sys
 from pathlib import Path
-
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 from app.db.base import Base
 from app.db.session import engine
+
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 
 @pytest.fixture(autouse=True)

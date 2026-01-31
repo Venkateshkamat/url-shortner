@@ -4,7 +4,6 @@ from contextlib import asynccontextmanager
 from app.api.router import api_router
 from app.db.base import Base
 from app.db.session import engine
-from app.db.models import URL
 
 
 def create_tables():

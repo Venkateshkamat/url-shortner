@@ -1,4 +1,4 @@
-name: Run backend unit Tests
+name: Run lint and backend unit Tests
 
 on:
   push:
@@ -25,7 +25,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
+          pip install ruff
+
+      - name: Run lint
+        env:
+          PYTHONPATH: .
+        run: |
+          ruff check .
 
       - name: Run tests
         env:
